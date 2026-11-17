@@ -3,17 +3,105 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Block Dodger</title>
-<style>
-  html, body { margin: 0; height: 100%; overflow: hidden; background: #11141b; }
-  #game { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
-  /* Read aloud, never shown: the status line screen readers announce. */
-  #status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-</style>
+<title>Porto Luna — Open-World Crime Game</title>
+<link rel="stylesheet" href="./styles.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
 </head>
 <body>
-<canvas id="game" aria-label="Block Dodger: move the paddle left and right to dodge falling blocks and catch coins"></canvas>
+<canvas id="game" aria-label="Porto Luna: drive and explore a coastal city, take jobs for Eddie Kwan, and stay ahead of the police"></canvas>
 <p id="status" role="status" aria-live="polite"></p>
+
+<div id="hud" class="hidden">
+  <div id="topleft">
+    <div id="healthbar"><div id="healthfill"></div></div>
+    <div id="cashrow"><span id="cash">$0</span><span id="charms">☾ 0/10</span></div>
+    <div id="carhealth"><div id="carhealthfill"></div></div>
+  </div>
+  <div id="stars">☆☆☆☆☆</div>
+  <div id="topright">
+    <div id="weapon">Fists</div>
+    <div id="speed"></div>
+  </div>
+  <canvas id="minimap" width="180" height="180"></canvas>
+  <div id="objective">
+    <div id="obj-name"></div>
+    <div id="obj-text"></div>
+    <div id="obj-timer"></div>
+  </div>
+  <div id="bustbar"><div id="bustfill"></div><span>BUSTED?</span></div>
+  <div id="feed"></div>
+  <div id="dialogue"><div id="dlg-speaker"></div><div id="dlg-text"></div></div>
+  <div id="prompt"></div>
+  <div id="banner"><div id="banner-main"></div><div id="banner-sub"></div></div>
+  <div id="crosshair">+</div>
+  <div id="vignette"></div>
+</div>
+
+<div id="menu" class="screen show">
+  <div class="panel">
+    <h1>PORTO LUNA</h1>
+    <p class="tag">Sun. Sea. Second chances — and one last crew to beat.</p>
+    <p class="story">Mia Torres drives for Eddie Kwan, the fixer at Luna Garage.
+      Five jobs stand between her and a clean slate. The Vultures want her stopped.
+      The cops want her stopped. Porto Luna is hers to take.</p>
+    <div class="buttons">
+      <button id="btn-new">New Game</button>
+      <button id="btn-continue">Continue</button>
+      <button id="btn-controls">Controls</button>
+    </div>
+    <p class="hint">WASD move / drive · Mouse camera · E enter car &amp; interact · F punch · 2 pistol · Shift sprint · Space jump / handbrake · P pause · M mute</p>
+    <p class="credit">An original game. No assets, names or music from any commercial game.</p>
+  </div>
+</div>
+
+<div id="pause" class="screen">
+  <div class="panel">
+    <h1>PAUSED</h1>
+    <div class="buttons">
+      <button id="btn-resume">Resume</button>
+      <button id="btn-pause-controls">Controls</button>
+      <button id="btn-save">Save Game</button>
+      <button id="btn-quit">Quit to Menu</button>
+    </div>
+  </div>
+</div>
+
+<div id="controls" class="screen">
+  <div class="panel">
+    <h1>CONTROLS</h1>
+    <table class="keys">
+      <tr><td>W A S D / Arrows</td><td>Move on foot · drive</td></tr>
+      <tr><td>Mouse</td><td>Camera (click the game to capture it)</td></tr>
+      <tr><td>Wheel</td><td>Zoom camera</td></tr>
+      <tr><td>Shift</td><td>Sprint</td></tr>
+      <tr><td>Space</td><td>Jump · handbrake while driving</td></tr>
+      <tr><td>E</td><td>Enter / exit car · pick up · talk</td></tr>
+      <tr><td>F / Left click</td><td>Punch / fire pistol</td></tr>
+      <tr><td>1 / 2 / Q</td><td>Fists / pistol / swap weapon</td></tr>
+      <tr><td>H</td><td>Horn</td></tr>
+      <tr><td>P / Esc</td><td>Pause</td></tr>
+      <tr><td>M</td><td>Mute</td></tr>
+    </table>
+    <div class="buttons"><button id="btn-back">Back</button></div>
+  </div>
+</div>
+
+<div id="complete" class="screen">
+  <div class="panel">
+    <h1>STORY COMPLETE</h1>
+    <p class="tag">The Vultures are finished. Porto Luna is yours.</p>
+    <p id="complete-stats" class="story"></p>
+    <div class="buttons">
+      <button id="btn-freeroam">Keep Exploring</button>
+      <button id="btn-menu2">Main Menu</button>
+    </div>
+  </div>
+</div>
+
+<div id="overlay"><div id="overlay-main"></div><div id="overlay-sub"></div></div>
+
 <script type="module" src="./src/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,65 @@
+/* Porto Luna — HUD and menu styling: deep teal, warm gold, readable at a glance. */
+html, body { margin: 0; height: 100%; overflow: hidden; background: #0e1a22; }
+body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #f2f0e8; }
+#game { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+#status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+#hud { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+#hud.hidden { display: none; }
+#topleft { position: absolute; top: 16px; left: 16px; width: 240px; }
+#healthbar { height: 14px; background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.5); border-radius: 3px; overflow: hidden; }
+#healthfill { height: 100%; width: 100%; background: linear-gradient(90deg, #37c26a, #7ae08a); transition: width 0.15s; }
+#healthfill.low { background: linear-gradient(90deg, #c23b2e, #e86a4a); }
+#cashrow { display: flex; gap: 16px; margin-top: 6px; font-weight: 700; font-size: 20px; text-shadow: 0 1px 3px #000; }
+#cash { color: #7ae08a; }
+#charms { color: #ffd94c; }
+#carhealth { height: 8px; margin-top: 6px; background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.4); border-radius: 3px; overflow: hidden; display: none; }
+#carhealthfill { height: 100%; width: 100%; background: #e8a81c; }
+#stars { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); font-size: 30px; letter-spacing: 6px; color: rgba(255,255,255,0.35); text-shadow: 0 1px 4px #000; }
+#stars.hot { color: #ffd94c; }
+#topright { position: absolute; top: 16px; right: 16px; text-align: right; font-weight: 700; text-shadow: 0 1px 3px #000; }
+#weapon { font-size: 18px; }
+#speed { font-size: 24px; color: #ffd94c; margin-top: 4px; }
+#minimap { position: absolute; right: 16px; bottom: 16px; width: 180px; height: 180px; border-radius: 50%; box-shadow: 0 0 0 3px rgba(255,255,255,0.25), 0 4px 14px rgba(0,0,0,0.5); background: #2e7fa8; }
+#objective { position: absolute; left: 16px; bottom: 16px; max-width: 330px; background: rgba(10, 26, 34, 0.72); border-left: 4px solid #ffd94c; border-radius: 4px; padding: 10px 14px; }
+#obj-name { font-size: 12px; letter-spacing: 2px; color: #ffd94c; font-weight: 700; }
+#obj-text { font-size: 16px; margin-top: 2px; }
+#obj-timer { font-size: 16px; color: #ff9a7a; font-weight: 700; margin-top: 2px; }
+#bustbar { position: absolute; top: 64px; left: 50%; transform: translateX(-50%); width: 240px; height: 12px; background: rgba(0,0,0,0.6); border: 1px solid #fff; border-radius: 3px; display: none; }
+#bustfill { height: 100%; width: 0; background: #4a7ae8; }
+#bustbar span { position: absolute; top: -20px; width: 100%; text-align: center; font-size: 12px; letter-spacing: 3px; font-weight: 700; }
+#feed { position: absolute; top: 96px; left: 16px; display: flex; flex-direction: column; gap: 5px; max-width: 340px; }
+.feed-item { background: rgba(10, 26, 34, 0.66); padding: 6px 10px; border-radius: 4px; font-size: 14px; animation: feedin 0.25s ease-out; }
+@keyframes feedin { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; } }
+#dialogue { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); width: min(560px, 70vw); background: rgba(10, 26, 34, 0.82); border-radius: 6px; padding: 10px 16px; display: none; }
+#dialogue.show { display: block; }
+#dlg-speaker { color: #ffd94c; font-weight: 700; font-size: 13px; letter-spacing: 2px; }
+#dlg-text { font-size: 16px; margin-top: 2px; }
+#prompt { position: absolute; left: 50%; bottom: 120px; transform: translateX(-50%); background: rgba(10, 26, 34, 0.8); padding: 8px 16px; border-radius: 20px; font-size: 15px; font-weight: 600; display: none; }
+#banner { position: absolute; top: 26%; width: 100%; text-align: center; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+#banner.show { opacity: 1; }
+#banner-main { font-size: 44px; font-weight: 800; letter-spacing: 6px; color: #ffd94c; text-shadow: 0 3px 12px #000; }
+#banner-sub { font-size: 18px; text-shadow: 0 2px 6px #000; margin-top: 4px; }
+#crosshair { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 26px; font-weight: 300; color: rgba(255,255,255,0.9); text-shadow: 0 1px 3px #000; display: none; }
+#vignette { position: absolute; inset: 0; box-shadow: inset 0 0 120px 40px rgba(200, 30, 20, 0.55); opacity: 0; pointer-events: none; }
+
+.screen { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 10; background: rgba(8, 20, 28, 0.45); }
+.screen.show { display: flex; }
+.panel { background: rgba(10, 26, 34, 0.88); border: 1px solid rgba(255, 217, 76, 0.4); border-radius: 10px; padding: 34px 44px; max-width: 620px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.55); }
+.panel h1 { margin: 0; font-size: 52px; letter-spacing: 8px; color: #ffd94c; text-shadow: 0 3px 10px rgba(0,0,0,0.6); }
+.panel .tag { color: #bfe3f2; font-size: 17px; margin: 8px 0 4px; }
+.panel .story { font-size: 15px; line-height: 1.5; color: #e8e4d8; }
+.buttons { display: flex; flex-direction: column; gap: 10px; margin: 22px auto 6px; width: 260px; }
+button { pointer-events: auto; cursor: pointer; font: inherit; font-size: 17px; font-weight: 700; letter-spacing: 1px; color: #0e1a22; background: linear-gradient(180deg, #ffd94c, #e8b81c); border: none; border-radius: 6px; padding: 12px 18px; box-shadow: 0 3px 0 #9a7a10; }
+button:hover { filter: brightness(1.08); }
+button:active { transform: translateY(2px); box-shadow: none; }
+button:disabled { filter: grayscale(0.7); opacity: 0.55; cursor: default; }
+.hint { font-size: 13px; color: #9ab8c4; line-height: 1.5; }
+.credit { font-size: 12px; color: #7a94a0; }
+.keys { margin: 14px auto; text-align: left; border-collapse: collapse; font-size: 15px; }
+.keys td { padding: 5px 14px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.keys td:first-child { color: #ffd94c; font-weight: 600; white-space: nowrap; }
+#overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 9; background: rgba(20, 0, 0, 0.55); pointer-events: none; }
+#overlay.show { display: flex; }
+#overlay-main { font-size: 64px; font-weight: 800; letter-spacing: 10px; color: #fff; text-shadow: 0 4px 16px #000; }
+#overlay-sub { font-size: 18px; margin-top: 6px; }
